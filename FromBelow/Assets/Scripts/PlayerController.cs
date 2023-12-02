@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Is not grounded");
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
