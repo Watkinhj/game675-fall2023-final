@@ -6,32 +6,31 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Variables")]
-    [SerializeField] private float speed = 8f;
-    [SerializeField] private float jumpForce = 16f;
-    [SerializeField] private float doubleJumpForce = 12f;
-    [SerializeField] private int maxLength = 50;
+    [SerializeField] protected float speed = 8f;
+    [SerializeField] protected float jumpForce = 16f;
+    [SerializeField] protected int maxLength = 50;
 
-    private float horizontal;
-    private bool isFacingRight = true;
-    private bool doubleJump;
-    private bool isJumping;
+    protected float horizontal;
+    protected bool isFacingRight = true;
+    protected bool doubleJump;
+    protected bool isJumping;
 
     [Header("Components")]
-    public Rigidbody2D rb;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
-    public SpriteRenderer sR;
-    //public Animator animator;
+    [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected Transform groundCheck;
+    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected SpriteRenderer sR;
+    //[SerializeField] protected Animator animator;
 
     [Header("Control Variables")]
-    [SerializeField] private float coyoteTime = 0.2f;
-    [SerializeField] private float jumpBufferTime = 0.2f;
-    private float coyoteTimeCounter;
-    private float jumpBufferCounter;
+    [SerializeField] protected float coyoteTime = 0.2f;
+    [SerializeField] protected float jumpBufferTime = 0.2f;
+    protected float coyoteTimeCounter;
+    protected float jumpBufferCounter;
 
     [Header("Running Jump Variables")]
-    [SerializeField] private float releaseJumpDuration = 0.2f;
-    private float releaseJumpCounter;
+    [SerializeField] protected float releaseJumpDuration = 0.2f;
+    protected float releaseJumpCounter;
 
     private void Update()
     {
@@ -59,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded())
         {
-            Debug.Log("Is grounded");
+            //Debug.Log("Is grounded");
             coyoteTimeCounter = coyoteTime;
         }
         else
@@ -87,27 +86,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump(float force)
+    protected void Jump(float force)
     {
         rb.velocity = new Vector2(rb.velocity.x, force);
         jumpBufferCounter = 0f;
         StartCoroutine(JumpCooldown());
     }
 
-    private void HandleDoubleJump()
+    protected virtual void HandleDoubleJump()
     {
-        if (isGrounded() && !Input.GetButton("Jump"))
-        {
-            doubleJump = false;
-            //animator.SetBool("isJumping", false);
-        }
-
-        if ((Input.GetButtonDown("Jump") && isGrounded()) || (Input.GetButtonDown("Jump") && doubleJump))
-        {
-            Jump(doubleJumpForce);
-            doubleJump = !doubleJump;
-            //animator.SetBool("isJumping", true);
-        }
+        
     }
 
     private void HandleReleaseJumpInput()
@@ -140,7 +128,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxLength);
     }
 
-    private bool isGrounded()
+    protected bool isGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
@@ -162,4 +150,5 @@ public class PlayerController : MonoBehaviour
         isJumping = false;
         //animator.SetBool("isJumping", false);
     }
+
 }
