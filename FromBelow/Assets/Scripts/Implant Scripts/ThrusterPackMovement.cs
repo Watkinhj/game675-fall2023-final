@@ -18,6 +18,7 @@ public class ThrusterPackMovement : PlayerController
         
     }
 
+    // this is the override that does not work
     protected override void HandleDoubleJump()
     {
         if (isGrounded() && !Input.GetButton("Jump"))
