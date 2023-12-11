@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected SpriteRenderer sR;
-    //[SerializeField] protected Animator animator;
+    [SerializeField] protected Animator animator;
 
     [Header("Control Variables")]
     [SerializeField] protected float coyoteTime = 0.2f;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         HandleJumpInput();
         HandleDoubleJump();
         HandleReleaseJumpInput();
-        //UpdateAnimator();
+        UpdateAnimator();
     }
 
     private void FixedUpdate()
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        //animator.SetBool("isRunning", Mathf.Abs(horizontal) > 0 && isGrounded());
+        animator.SetBool("isRunning", Mathf.Abs(horizontal) > 0 && isGrounded());
         FlipCharacter();
     }
 
@@ -145,10 +145,12 @@ public class PlayerController : MonoBehaviour
     private IEnumerator JumpCooldown()
     {
         isJumping = true;
-        //animator.SetBool("isJumping", true);
+        Debug.Log("Jumping");
+        animator.SetBool("isJumping", true);
         yield return new WaitForSeconds(0.4f);
         isJumping = false;
-        //animator.SetBool("isJumping", false);
+        Debug.Log("Not Jumping");
+        animator.SetBool("isJumping", false);
     }
 
 }
