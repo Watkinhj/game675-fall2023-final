@@ -10,8 +10,12 @@ public class Command : MonoBehaviour
     public GameObject popup3; // UI notif
     public GameObject popupY; // UI notif
     public GameObject popupN; // UI notif
+    public GameManager gm;
+    public GameObject redDoor;
     public KeyCode interactKey = KeyCode.E; // Define the key for interaction
     public KeyCode closeKey = KeyCode.C; // Define the key to close the popup
+    public KeyCode YesKey = KeyCode.Y; // Define the key to say yes
+    public KeyCode NoKey = KeyCode.N; // Define the key to say yes
 
     private bool isInRange = false;
 
@@ -47,15 +51,36 @@ public class Command : MonoBehaviour
                 if (!popup1.activeSelf) // Check if popup is not active
                 {
                     HideNotif();
-                   
-                    ShowPopup();
+                    if (gm.keycards == 0)
+                    {
+                            ShowPopup3();
+                            if (Input.GetKeyDown(YesKey))
+                            {
+                                HidePopup3();
+                                ShowPopupY();
+                                Destroy(redDoor);
+                            }
+                            if (Input.GetKeyDown(NoKey))
+                            {
+                                HidePopup3();
+                                ShowPopupN();
+                            }
+                        }
+                    
+                    else
+                    {
+                        ShowPopup();
+                    }
                     
                 }
             }
             else if (Input.GetKeyDown(closeKey))
             {
                 HidePopup();
-                
+                HidePopup2();
+                HidePopup3();
+                HidePopupY();
+                HidePopupN();
             }
         }
     }
