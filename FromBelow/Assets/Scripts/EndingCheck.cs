@@ -9,8 +9,9 @@ public class EndingCheck : MonoBehaviour
     public GameObject player;
     public Animator playerAnim;
     public GameObject badEndPopup;
+    public PlayerController playerController;
     public GameObject endingScreen;
-    public GameObject endingScreenAnim;
+    public Animator endingScreenAnim;
 
     //bad ending trigger
     private void OnTriggerEnter2D(Collider2D other)
@@ -19,15 +20,34 @@ public class EndingCheck : MonoBehaviour
         {
             if (gm.implants >= 3)
             {
-                //ui popup
-                //fucking kill the player
-                //fade to black
+                StartCoroutine(TriggerBadEnding());
             }
         }
     }
 
+    private IEnumerator TriggerBadEnding()
+    {
+        // Enable badEndPopup
+        badEndPopup.SetActive(true);
+
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3f);
+
+        // Play player anim
+        playerController.enabled = false;
+        playerAnim.SetTrigger("die"); 
+
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3f);
+
+        // Play ending screen anim
+        endingScreen.SetActive(true);
+        endingScreenAnim.SetTrigger("ending");
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
-        //fade to black
+        endingScreen.SetActive(true);
+        endingScreenAnim.SetTrigger("ending");
     }
 }
