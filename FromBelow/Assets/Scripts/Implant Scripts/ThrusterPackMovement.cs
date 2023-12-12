@@ -6,16 +6,10 @@ public class ThrusterPackMovement : PlayerController
 {
     [SerializeField] protected float doubleJumpForce = 12f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        
+        base.Update();
     }
 
     // this is the override that does not work

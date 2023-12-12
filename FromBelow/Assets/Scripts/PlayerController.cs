@@ -32,7 +32,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float releaseJumpDuration = 0.2f;
     protected float releaseJumpCounter;
 
-    private void Update()
+    [SerializeField] protected GameObject knifeObj;
+
+    void Start()
+    {
+        knifeObj.SetActive(false);
+    }
+
+    protected void Update()
     {
         GetInput();
         CheckGrounded();
@@ -40,6 +47,9 @@ public class PlayerController : MonoBehaviour
         HandleDoubleJump();
         HandleReleaseJumpInput();
         UpdateAnimator();
+        HandleMonowireMovement();
+        HandleKnifeAttack();
+        HandleMagneticBootMovement();
     }
 
     private void FixedUpdate()
@@ -96,6 +106,21 @@ public class PlayerController : MonoBehaviour
     protected virtual void HandleDoubleJump()
     {
         
+    }
+
+    protected virtual void HandleMonowireMovement()
+    {
+
+    }
+
+    protected virtual void HandleKnifeAttack()
+    {
+
+    }
+
+    protected virtual void HandleMagneticBootMovement()
+    {
+
     }
 
     private void HandleReleaseJumpInput()
