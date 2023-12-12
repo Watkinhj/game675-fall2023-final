@@ -9,6 +9,7 @@ TagManager:
   - Log
   - Enemy
   - Keycard
+  - Teleporter
   layers:
   - Default
   - TransparentFX

@@ -44,34 +44,26 @@ public class Command : MonoBehaviour
 
     private void Update()
     {
-        if (isInRange) //Player is in range
+        if (isInRange)
         {
             if (Input.GetKeyDown(interactKey))
             {
-                if (!popup1.activeSelf) // Check if popup is not active
+                HideNotif();
+                if (gm.keycards == 0)
                 {
-                    HideNotif();
-                    if (gm.keycards == 0)
-                    {
-                            ShowPopup3();
-                            if (Input.GetKeyDown(YesKey))
-                            {
-                                HidePopup3();
-                                ShowPopupY();
-                                Destroy(redDoor);
-                            }
-                            if (Input.GetKeyDown(NoKey))
-                            {
-                                HidePopup3();
-                                ShowPopupN();
-                            }
-                        }
-                    
-                    else
-                    {
-                        ShowPopup();
-                    }
-                    
+                    ShowPopup3();
+                }
+                else if (gm.keycards == 0 && gm.terminals >= 3)
+                {
+                    ShowPopup3();
+                }
+                else if (gm.terminals >= 3)
+                {
+                    ShowPopup2();
+                }
+                else
+                {
+                    ShowPopup();
                 }
             }
             else if (Input.GetKeyDown(closeKey))
@@ -82,12 +74,24 @@ public class Command : MonoBehaviour
                 HidePopupY();
                 HidePopupN();
             }
+            else if (Input.GetKeyDown(YesKey))
+            {
+                HidePopup3();
+                ShowPopupY();
+                Destroy(redDoor);
+            }
+            if (Input.GetKeyDown(NoKey))
+            {
+                HidePopup3();
+                ShowPopupN();
+            }
         }
     }
 
 
-    //All the stupid functions
-    void ShowPopup()
+
+//All the stupid functions
+void ShowPopup()
     {
         if (popup1 != null)
         {

@@ -7,6 +7,19 @@ public class MagneticBootMovement : PlayerController
     [SerializeField] private Transform rightWallCheck;
     [SerializeField] private LayerMask wallLayer;
 
+    // Update is called once per frame
+void Update()
+{
+    base.Update();
+
+    // Check horizontal input to determine movement direction
+    if (base.horizontal != 0)
+    {
+        // Adjust the player's direction based on the input
+        FlipDirection();
+    }
+}
+
     protected override void HandleMagneticBootMovement()
     {
         bool isLeftWall = Physics2D.OverlapCircle(leftWallCheck.position, 0.2f, wallLayer);
@@ -36,5 +49,12 @@ public class MagneticBootMovement : PlayerController
             // Play jump animation
             StartCoroutine(JumpCooldown());
         }
+    }
+
+    // Function to flip the player's direction based on the input
+    private void FlipDirection()
+    {
+        // Change the player's direction based on the isFacingRight variable
+        transform.localScale = new Vector3(isFacingRight ? 1 : -1, transform.localScale.y, transform.localScale.z);
     }
 }
