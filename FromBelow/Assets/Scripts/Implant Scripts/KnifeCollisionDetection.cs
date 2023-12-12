@@ -16,9 +16,9 @@ public class KnifeCollisionDetection : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             Debug.Log("Enemy hit!");
             Destroy(other.gameObject);

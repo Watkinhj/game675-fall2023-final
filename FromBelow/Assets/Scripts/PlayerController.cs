@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected LayerMask ladderLayer;
     [SerializeField] protected float ladderClimbSpeed = 5f;
     protected bool isClimbing;
+    protected bool isExitingLadder;
 
     [SerializeField] protected GameObject knifeObj;
 
@@ -97,10 +98,12 @@ public class PlayerController : MonoBehaviour
         if (isGrounded())
         {
             //Debug.Log("Is grounded");
+            animator.SetBool("inAir", false);
             coyoteTimeCounter = coyoteTime;
         }
         else
         {
+            animator.SetBool("inAir", true);
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
@@ -205,13 +208,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Not Jumping");
         animator.SetBool("isJumping", false);
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
         {
             isClimbing = true;
-            animator.SetBool("isClimbing", true);
+            isExitingLadder = false;
         }
     }
 
@@ -220,13 +222,30 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Ladder"))
         {
             isClimbing = false;
-            animator.SetBool("isClimbing", true);
+            StartCoroutine(ExitLadder());
         }
+    }
+
+    protected IEnumerator ExitLadder()
+    {
+        isExitingLadder = true;
+        yield return new WaitForSeconds(0.2f); // Adjust the delay as needed
+        isExitingLadder = false;
+        animator.SetBool("isClimbing", false); // Assuming "isClimbing" is the climbing animation parameter
     }
 
     protected virtual void HandleLadderClimbing()
     {
+        if (isExitingLadder)
+        {
+            // Do nothing while exiting the ladder
+            return;
+        }
+
         float vertical = Input.GetAxisRaw("Vertical");
         rb.velocity = new Vector2(rb.velocity.x, vertical * ladderClimbSpeed);
+
+        // Trigger climbing animation
+        animator.SetBool("isClimbing", Mathf.Abs(vertical) > 0.1f);
     }
 }

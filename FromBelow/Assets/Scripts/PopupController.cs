@@ -26,6 +26,7 @@ public class PopupController : MonoBehaviour
             isInRange = false;
             HideNotif();
             HidePopup();
+            HideNotifClose();
         }
     }
 

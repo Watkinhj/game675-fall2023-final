@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - Log
   - Enemy
+  - Keycard
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public class InventorySystem : MonoBehaviour
     protected bool industrialKnifeEquipped = false;
     protected bool thrusterPackEquipped = false;
 
+
     // list of implant gameobjects
     private List<string> implantObjects = new List<string>();
 

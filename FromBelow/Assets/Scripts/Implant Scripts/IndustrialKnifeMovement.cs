@@ -5,6 +5,7 @@ using UnityEngine;
 public class IndustrialKnifeMovement : PlayerController
 {
     // Update is called once per frame
+
     void Update()
     {
         base.Update();
@@ -16,6 +17,7 @@ public class IndustrialKnifeMovement : PlayerController
         {
             knifeObj.SetActive(true);
             Debug.Log("Knife attack!");
+            //animator.SetTrigger("isAttacking");
         }
         else if (Input.GetMouseButtonUp(1))
         {
