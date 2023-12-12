@@ -32,6 +32,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float releaseJumpDuration = 0.2f;
     protected float releaseJumpCounter;
 
+    [Header("Ladder Variables")]
+    [SerializeField] protected LayerMask ladderLayer;
+    [SerializeField] protected float ladderClimbSpeed = 5f;
+    protected bool isClimbing;
+
     [SerializeField] protected GameObject knifeObj;
 
     void Start()
@@ -47,10 +52,33 @@ public class PlayerController : MonoBehaviour
         HandleDoubleJump();
         HandleReleaseJumpInput();
         UpdateAnimator();
+
+        // Add ladder-related methods
+        if (isClimbing)
+        {
+            HandleLadderClimbing();
+        }
+        else
+        {
+            HandleMonowireMovement();
+            HandleKnifeAttack();
+            HandleMagneticBootMovement();
+        }
+    }
+    /*
+    protected void Update()
+    {
+        GetInput();
+        CheckGrounded();
+        HandleJumpInput();
+        HandleDoubleJump();
+        HandleReleaseJumpInput();
+        UpdateAnimator();
         HandleMonowireMovement();
         HandleKnifeAttack();
         HandleMagneticBootMovement();
     }
+    */
 
     private void FixedUpdate()
     {
@@ -178,4 +206,27 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", false);
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = true;
+            animator.SetBool("isClimbing", true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = false;
+            animator.SetBool("isClimbing", true);
+        }
+    }
+
+    protected virtual void HandleLadderClimbing()
+    {
+        float vertical = Input.GetAxisRaw("Vertical");
+        rb.velocity = new Vector2(rb.velocity.x, vertical * ladderClimbSpeed);
+    }
 }
