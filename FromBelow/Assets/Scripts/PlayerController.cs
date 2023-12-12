@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement Variables")]
     [SerializeField] protected float speed = 8f;
-    [SerializeField] protected float jumpForce = 16f;
+    [SerializeField] protected float jumpForce = 12f;
     [SerializeField] protected int maxLength = 50;
 
     protected float horizontal;
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         MoveHorizontally();
-        AdjustGravity();
+        //AdjustGravity();
         LimitVelocity();
     }
 
@@ -143,10 +143,10 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
-    private void AdjustGravity()
-    {
-        rb.gravityScale = (rb.velocity.y < -0.1) ? rb.gravityScale * 1.1f : 2;
-    }
+    // private void AdjustGravity()
+    // {
+    //     rb.gravityScale = (rb.velocity.y < -0.1) ? rb.gravityScale * 1.1f : 1;
+    // }
 
     private void LimitVelocity()
     {
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator JumpCooldown()
+    protected IEnumerator JumpCooldown()
     {
         isJumping = true;
         Debug.Log("Jumping");
