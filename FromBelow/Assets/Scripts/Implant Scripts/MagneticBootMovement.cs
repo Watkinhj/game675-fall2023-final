@@ -29,6 +29,7 @@ void Update()
         {
             // Wall jump logic
             HandleWallJump(isLeftWall);
+            animator.SetBool("onWall", true);
         }
     }
 
@@ -37,6 +38,7 @@ void Update()
         // Check for wall jump input
         if (Input.GetButtonDown("Jump"))
         {
+            animator.SetBool("onWall", false);
             // Apply a force to jump off the wall
             float wallJumpForce = jumpForce * 0.7f; // Adjust the force as needed
             float horizontalForce = isLeftWall ? wallJumpForce : -wallJumpForce;
