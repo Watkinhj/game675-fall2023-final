@@ -9,9 +9,9 @@ Kristen Marcinek
 Playable Link: (Coming as soon as we get it working)
 
 KNOWN ISSUES: 
-Animations do not flip upon picking up implants
-Medical Robot does not properly show equip/unequip Ui canvas
-Grapple Implant does not fully work 
+-Animations do not flip upon picking up implants
+-Medical Robot does not properly show equip/unequip Ui canvas
+-Grapple Implant does not fully work 
 
 DESIGN DOC LINK: 
 https://docs.google.com/document/d/1Z4Vq4htXLMwPb4bhktsmWNUHFllH9N8DZMN8isP6r98/edit
