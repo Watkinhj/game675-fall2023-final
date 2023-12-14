@@ -6,7 +6,7 @@ Watkin Jones
 Alethea Saliba
 Kristen Marcinek
 
-Playable Link: (Coming as soon as we get it working)
+Playable Link: https://watkinhj.github.io/game675-fall2023-final/FromBelow/Play/
 
 KNOWN ISSUES: 
 -Animations do not flip upon picking up implants
